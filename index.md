@@ -7,7 +7,7 @@
 - [Interactive Scene](https://commandmaster.github.io/miniGames/)
   
 
-## Project Repository
+## Project Repos
 - [Interactive Scene Repo](https://github.com/commandmaster/miniGames)
 
 
