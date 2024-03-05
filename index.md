@@ -7,8 +7,9 @@
 - [Interactive Scene](https://github.com/commandmaster/miniGames)
   
 
-## My documentation
-- [Scuffed Engine Docs](https://commandmaster.github.io/EngineDocs/index.html)
-
 ## Project Repository
 - [Interactive Scene Repo](https://github.com/commandmaster/miniGames)
+
+
+## My documentation
+- [Scuffed Engine Docs](https://commandmaster.github.io/EngineDocs/index.html)
