@@ -4,7 +4,7 @@
 
 
 ## Projects
-- [Interactive Scene](https://github.com/commandmaster/miniGames)
+- [Interactive Scene](https://commandmaster.github.io/miniGames/)
   
 
 ## Project Repository
