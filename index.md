@@ -1,6 +1,7 @@
 # My Comp Sci 30 Stuff
+
 ## Demos
-- [Traffic Light](https://wmcicompsci.ca/)
+- [Bouncing Ball](demos/ballBouncing/)
 
 
 ## Projects
