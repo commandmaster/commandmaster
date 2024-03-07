@@ -27,9 +27,9 @@ class GradientBox{
     color1 = color(color1);
     color2 = color(color2);
     
-    clip(() => {
-      circle(offsetX + sizeX/2, offsetY + sizeY/2, sizeX + sizeX*round/100);
-    });
+    // clip(() => {
+    //   circle(offsetX + sizeX/2, offsetY + sizeY/2, sizeX + sizeX*round/100);
+    // });
 
     noStroke();
     let oldColor = color1;
