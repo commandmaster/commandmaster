@@ -1,0 +1,311 @@
+{
+    "gameData": {
+      "levels": {
+        "titleScreen": {
+          "levelManagerScriptName": "titleLevelManager",
+          "shouldResize":false,
+          "backgroundX":2560,
+          "backgroundY":1440,
+          "gameObjects": [
+            {
+              "transform": {
+                "Position": {
+                  "isPInst": true, 
+                  "x": 200,
+                  "y": 400,
+                  "z": 0
+                },
+                "Rotation": 0,
+                "Scale": {
+                  "isPInst": true,
+                  "x": 1,
+                  "y": 1,
+                  "z": 0
+                }
+              },
+              "name": "MoltenTitle",
+              "tags": [],
+              "ignoreCulling": true,
+              "colliders": [],
+              "spriteRenderer": {
+                "imgName": "MoltenLogo",
+                "imgSize": {
+                  "isPInst": true,
+                  "x": 400,
+                  "y": 400,
+                  "z": 0
+                },
+                "spriteColor": null,
+                "imageOffset": {
+                  "isPInst": true,
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flip": true,
+                "glow": false,
+                "glowColor": null
+              },
+              "rigidBody": null,
+              "animator": null,
+              "scriptNames": [],
+              "platformerPlayerController": null,
+              "topDownPlayerController": null
+            },
+            {
+              "transform": {
+                "Position": {
+                  "isPInst": true,
+                  "x": 1280,
+                  "y": 100,
+                  "z": 0
+                },
+                "Rotation": 0,
+                "Scale": {
+                  "isPInst": true,
+                  "x": 1,
+                  "y": 1,
+                  "z": 0
+                }
+              },
+              "name": "mainTitle",
+              "tags": [],
+              "ignoreCulling": true,
+              "colliders": [],
+              "spriteRenderer": {
+                "imgName": "mainTitle",
+                "imgSize": {
+                  "isPInst": true,
+                  "x": 1000,
+                  "y": 300,
+                  "z": 0
+                },
+                "spriteColor": null,
+                "imageOffset": {
+                  "isPInst": true,
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flip": true,
+                "glow": false,
+                "glowColor": null
+              },
+              "rigidBody": null,
+              "animator": null,
+              "scriptNames": [],
+              "platformerPlayerController": null,
+              "topDownPlayerController": null
+            },
+            {
+              "transform": {
+                "Position": {
+                  "isPInst": true,
+                  "x": 1000,
+                  "y": 400,
+                  "z": 0
+                },
+                "Rotation": 0,
+                "Scale": {
+                  "isPInst": true,
+                  "x": 1,
+                  "y": 1,
+                  "z": 0
+                }
+              },
+              "name": "FlappyBirdTitle",
+              "tags": [],
+              "ignoreCulling": true,
+              "colliders": [],
+              "spriteRenderer": {
+                "imgName": "flappyBirdLogo",
+                "imgSize": {
+                  "isPInst": true,
+                  "x": 400,
+                  "y": 400,
+                  "z": 0
+                },
+                "spriteColor": null,
+                "imageOffset": {
+                  "isPInst": true,
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flip": true,
+                "glow": false,
+                "glowColor": null
+              },
+              "rigidBody": null,
+              "animator": null,
+              "scriptNames": [],
+              "platformerPlayerController": null,
+              "topDownPlayerController": null
+            },
+            {
+              "transform": {
+                "Position": {
+                  "isPInst": true,
+                  "x": 200,
+                  "y": 1000,
+                  "z": 0
+                },
+                "Rotation": 0,
+                "Scale": {
+                  "isPInst": true,
+                  "x": 1,
+                  "y": 1,
+                  "z": 0
+                }
+              },
+              "name": "SnakeGameTitle",
+              "tags": [],
+              "ignoreCulling": true,
+              "colliders": [],
+              "spriteRenderer": {
+                "imgName": "snakeGameLogo",
+                "imgSize": {
+                  "isPInst": true,
+                  "x": 400,
+                  "y": 400,
+                  "z": 0
+                },
+                "spriteColor": null,
+                "imageOffset": {
+                  "isPInst": true,
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "flip": true,
+                "glow": false,
+                "glowColor": null
+              },
+              "rigidBody": null,
+              "animator": null,
+              "scriptNames": [],
+              "platformerPlayerController": null,
+              "topDownPlayerController": null
+            }
+          ]
+        },
+        "flappyBird":{
+          "levelManagerScriptName": "flappyBirdLevelManager",
+          "gameObjects":[
+            {
+              "transform": {
+                "Position": {
+                  "isPInst": true,
+                  "x": 400,
+                  "y": 400,
+                  "z": 0
+                },
+                "Rotation": 0,
+                "Scale": {
+                  "isPInst": true,
+                  "x": 1,
+                  "y": 1,
+                  "z": 0
+                }
+              },
+              "name": "Bird",
+              "tags": [
+                "FlappyBird"
+              ],
+              "ignoreCulling": false,
+              "colliders": [
+                {
+                  "colliderRadius": 43,
+                  "isTrigger": false,
+                  "isContinuous": true,
+                  "colliderOffset": {
+                    "isPInst": true,
+                    "x": 53,
+                    "y": 42,
+                    "z": 0
+                  },
+                  "colliderType": "circle",
+                  "colliderTags": []
+                }
+              ],
+              "spriteRenderer": null,
+              "rigidBody": {
+                "mass": 3,
+                "bounce": 1,
+                "drag": 0,
+                "gravityScale": 0.05,
+                "maxSpeed": 10000000000
+              },
+              "animator": {
+                "animations": {
+                  "default": {
+                    "spriteSheetName": "birdIdle",
+                    "rotation": 0,
+                    "numOfFrames": 8,
+                    "size": 0.4,
+                    "speed": 10,
+                    "flipAxisOffset": 0,
+                    "animationOffset": {
+                      "isPInst": true,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    }
+                  },
+                  "flap": {
+                    "spriteSheetName": "birdFlap",
+                    "rotation": 0,
+                    "numOfFrames": 7,
+                    "size": 0.4,
+                    "speed": 15,
+                    "flipAxisOffset": 0,
+                    "animationOffset": {
+                      "isPInst": true,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    }
+                  }
+                },
+                "currentAnimation": {
+                  "spriteSheetName": "birdIdle",
+                  "rotation": 0,
+                  "numOfFrames": 8,
+                  "size": 0.4,
+                  "speed": 10,
+                  "flipAxisOffset": 0,
+                  "animationOffset": {
+                    "isPInst": true,
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  }
+                },
+                "finishCurrentAnim": false,
+                "inTransition": true,
+                "currentFrame": 0,
+                "flip": false,
+                "flipVertical": false,
+                "frameTime": 0,
+                "loopCount": 0,
+                "animationOffset": {
+                  "isPInst": true,
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              },
+              "scriptNames": [
+                "birdScript"
+              ],
+              "platformerPlayerController": null,
+              "topDownPlayerController": null
+            }
+            
+          ]
+
+        }
+      }
+    }
+  }
+  
