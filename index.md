@@ -3,6 +3,7 @@
 ## Demos
 - [Bouncing Ball](demos/ballBouncing/)
 - [Arrays and Objects](demos/Arrays%20and%20Objects/)
+- [Art](demos/GenArt/)
 
 
 ## Projects
