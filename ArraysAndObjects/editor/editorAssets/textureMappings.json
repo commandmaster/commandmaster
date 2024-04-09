@@ -1,0 +1,16 @@
+{
+    "texturesToLoad":[
+        {
+            "path":"movingArrow.png",
+            "name":"movingArrow"
+        },
+        {
+            "path":"movingArrow2.png",
+            "name":"movingArrow2"
+        },
+        {
+            "path":"rotationArrow2.png",
+            "name":"rotationArrow"
+        }
+    ]
+}

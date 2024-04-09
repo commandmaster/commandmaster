@@ -2,13 +2,13 @@
 
 ## Demos
 - [Bouncing Ball](demos/ballBouncing/)
-- [Arrays and Objects](demos/Arrays%20and%20Objects/)
 - [Art](demos/GenArt/)
 
 
 ## Projects
 - [Interactive Scene](interactiveScene)
 - [Interactive Scene WebSite](https://commandmaster.github.io/miniGames/)
+- [Arrays and Objects](ArraysAndObjects)
   
 
 ## Project Repos
