@@ -3,7 +3,7 @@ let grid1;
 const sketch = function(p5) {
   p5.setup = () => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight);
-    grid1 = new Grid(p5, 1, 700, 700);
+    grid1 = new Grid(p5, 0, 700, 700);
     p5.background(0, 100, 100);
     p5.strokeWeight(2);
   }
@@ -81,7 +81,7 @@ class Grid{
         let pieceVector = this.p5.createVector(j * this.resolution, i * this.resolution);
         let distance = this.p5.dist(mouse.x, mouse.y, pieceVector.x, pieceVector.y);
         
-        const radius = 200;
+        const radius = 75;
         const brushStrength = 1;
         if (Math.abs(distance) < radius){
           function lerpColor(p5, p5Color1, p5Color2, amount){
@@ -118,30 +118,7 @@ class Grid{
   }
 
   Update(){
-    //Dynamically adjust resolution based on average loop time
-    const targetLoopTime = 1000 / 60;
-    const loopTimeDifference = targetLoopTime - this.avgLoopTime;
-    const resolutionChange = loopTimeDifference / 100;
-    this.resolution += resolutionChange;
-    this.resolution = this.p5.constrain(this.resolution, 1, this.p5.max(this.pixelsX, this.pixelsY));
     
-    //Change current grid to match new resolution
-    const grid = [];
-    const rows = this.pixelsY / this.resolution;
-    const cols = this.pixelsX / this.resolution;
-
-    for (let i = 0; i < rows; i++){
-      grid[i] = [];
-      for (let j = 0; j < cols; j++){
-        //get color of old grid piece but with new resolution
-        const oldI = Math.floor(i * (this.resolution / this.pixelsY));
-        const oldJ = Math.floor(j * (this.resolution / this.pixelsX));
-        const color = this.grid[oldI][oldJ].color;
-
-        grid[i][j] = new GridPiece(i, j, color);
-      }
-    }
-    this.grid = grid;
 
 
     const startTime = this.p5.millis();
