@@ -2,88 +2,86 @@
 let grid1;
 const sketch = function(p5) {
   p5.setup = () => {
-    p5.createCanvas(p5.windowWidth, p5.windowHeight);
-    grid1 = new Grid(p5, 10, 500, 500);
-    p5.background(255);
-    p5.strokeWeight(2);
+    // fill the window
+    const maxSize = Math.min(window.innerWidth, window.innerHeight);
+    p5.createCanvas(maxSize, maxSize);
+    p5.frameRate(60);
+
+    grid1 = new Grid(p5, maxSize, maxSize, 0.05);
   }
 
   p5.draw = () => {
-    p5.background(255);
+    p5.background(0);
     grid1.Update();
+
   }
 
 }
 
-
-
 class Grid{
-  constructor(p5, resolution, pixelsX, pixelsY){
+  constructor(p5, width, height, density = 0.5){
     this.p5 = p5;
-    this.resolution = p5.constrain(resolution, 1, p5.max(pixelsX, pixelsY));
-    this.pixelsX = pixelsX;
-    this.pixelsY = pixelsY;
+    this.grid = [];
+    this.width = width;
+    this.height = height;
+    
+
+
+    this.density = density;
+    
+
+    p5.noStroke();
+
     this.#initGrid();
   }
 
+
   #initGrid(){
-    this.grid = [];
-    const rows = this.pixelsY / this.resolution;
-    const cols = this.pixelsX / this.resolution;
-
-    for (let i = 0; i < rows; i++){
-      this.grid[i] = [];
-      for (let j = 0; j < cols; j++){
-        const randColor = Math.random() > 0.5 ? 0 : 255;
-        this.grid[i][j] = new GridPiece(randColor);
+    const cellSize = this.width / (this.width * this.density);
+    for(let x = 0; x < this.width; x += cellSize){
+      for(let y = 0; y < this.height; y += cellSize){
+        this.grid.push(new Cell(this.p5, x, y, cellSize));
       }
     }
-    
-  }
-
-  #drawGrid(){
-    this.p5.push();
-    this.p5.noStroke();
-    for (let i = 0; i < this.grid.length; i++){
-      for (let j = 0; j < this.grid[i].length; j++){
-        this.p5.fill(this.grid[i][j].color);
-        this.p5.rect(j * this.resolution, i * this.resolution, this.resolution, this.resolution);
-      }
-    }
-    this.p5.pop();
-  }
-
-
-  #gridBehavior(){
-    let allGrey = true;
-    for (let i = 0; i < this.grid.length; i++){
-      for (let j = 0; j < this.grid[i].length; j++){
-        // form a spiral
-        const distToCenter = Math.sqrt((i - this.grid.length / 2) ** 2 + (j - this.grid[i].length / 2) ** 2);
-        const color = this.grid[i][j].color;
-        const targetColor = this.p5.map(distToCenter, 0, Math.sqrt((this.grid.length / 2) ** 2 + (this.grid[i].length / 2) ** 2), 0, 255);
-        this.grid[i][j].color = this.p5.lerp(color, targetColor, 0.1); 
-      }
-    }
-
-    
   }
 
   Update(){
-    this.#gridBehavior();
-    this.#drawGrid();
+    this.p5.push();
+    
+    for(let cell of this.grid){
+      cell.Update();
+    }
+    
+    
+    this.p5.pop();
   }
 
 }
 
-
-class GridPiece{
-  color;
-
-  constructor(color){
-    this.color = color;
+class Cell{
+  constructor(p5, x, y, size){
+    this.x = x;
+    this.y = y;
+    this.p5 = p5;
+    this.size = size;
   }
+
+  Update(){
+    // Update the cell
+    this.#draw();
+  }
+
+  #draw(){
+    // Draw the cell
+    const randColor = this.p5.random(255);
+    const randColor2 = this.p5.random(255);
+    
+    this.p5.fill(randColor, randColor2, 255);
+    this.p5.rect(this.x, this.y, this.size, this.size);
+  }
+
 }
+
 
 window.addEventListener('load', () => {
   let gameWindowSketch = new p5(sketch);
