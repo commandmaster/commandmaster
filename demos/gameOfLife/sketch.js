@@ -3,7 +3,7 @@ let grid1;
 const sketch = function(p5) {
   p5.setup = () => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight);
-    grid1 = new Grid(p5, 100, 100);
+    grid1 = new Grid(p5, 65, 65);
     p5.background(255);
     p5.noStroke();
   }
@@ -30,14 +30,14 @@ class Grid{
     this.cols = cols;
 
     this.defaultSize = 10;
-    this.zoom = 1;
+
 
     this.grid = [];
     this.positionType ='middle';
     this.#initGrid();
 
+    this.p5.frameRate(20);
     
-
   }
 
   #initGrid(){
@@ -45,74 +45,78 @@ class Grid{
       this.grid.push([]);
       for (let j = 0; j < this.cols; j++){
         this.grid[i].push(new Cell(this.p5, i, j, this.defaultSize));
+        this.grid[i][j].live = Math.random() > 0.5 ? true : false;
+
       }
     }
     
-    if (this.positionType === 'middle'){
-      console.log('middle');
-      let x = (this.p5.width - this.cols * this.defaultSize) / 2;
-      let y = (this.p5.height - this.rows * this.defaultSize) / 2;
-      this.#setGridPosition(x, y);
-    }
+
+    // this.grid[9][10].live = true;
+    // this.grid[10][10].live = true;
+    // this.grid[11][10].live = true;
+    // this.grid[9][11].live = true;
+
+    // this.grid[10][12].live = true;  
   }
 
-  #setGridPosition(x, y){
+
+
+  #conwayRules(){
+    const newGrid = [];
     for (let i = 0; i < this.rows; i++){
+      newGrid.push([]);
       for (let j = 0; j < this.cols; j++){
-        this.grid[i][j].x += x;
-        this.grid[i][j].y += y;
+        let liveNeighbors = 0;
+        
+        for (let x = -1; x < 2; x++){
+          for (let y = -1; y < 2; y++){
+            if (i + x >= 0 && i + x < this.rows && j + y >= 0 && j + y < this.cols){
+              if (this.grid[i + x][j + y].live){
+                liveNeighbors++;
+              }
+            }
+          }
+        }
+
+        // Subtract the cell itself
+        if (this.grid[i][j].live){
+          liveNeighbors--;
+        }
+        
+        const cell = new Cell(this.p5, i, j, this.defaultSize);
+        cell.live = this.grid[i][j].live;
+        if (this.grid[i][j].live){
+          if (liveNeighbors < 2 || liveNeighbors > 3){
+            cell.live = false;
+          }
+        } 
+        else {
+          if (liveNeighbors === 3){
+            cell.live = true;
+          }
+
+          else{
+            cell.live = false;
+          }
+        }
+
+        newGrid[i].push(cell);
       }
     }
+    this.grid = newGrid;
   }
 
   Update(){
-    // MouseWheel Zoom
-    this.zoom = this.p5.constrain(this.zoom, 0.2, 25);
-    if (this.positionType === 'middle'){
-      this.p5.translate(this.p5.width / 2, this.p5.height / 2);
-      this.p5.scale(this.zoom);
-      this.p5.translate(-this.p5.width / 2, -this.p5.height / 2);
-    }
-
-    //highligth cell on mouse hover
-    let x = this.p5.mouseX - this.p5.width / 2;
-    let y = this.p5.mouseY - this.p5.height / 2;
-     
-    x /= this.zoom;
-    y /= this.zoom;
-
-    x += this.p5.width / 2;
-    y += this.p5.height / 2;
-
-    const cell = this.#getCell(x, y);
-    if (cell){
-      cell.color = this.p5.color(0, 255, 0);
-    }
-
     for (let i = 0; i < this.rows; i++){
       for (let j = 0; j < this.cols; j++){
         this.grid[i][j].Show();
       }
     }
 
+    this.#conwayRules();
+
   }
 
-  #getCell(x, y){
-    for (let i = 0; i < this.rows; i++){
-      for (let j = 0; j < this.cols; j++){
-        // acount for zoom
-        let cellX = this.grid[i][j].x;
-        let cellY = this.grid[i][j].y;
-        let cellSize = this.grid[i][j].size;
-        
-        if (x > cellX && x < cellX + cellSize && y > cellY && y < cellY + cellSize){
-          return this.grid[i][j];
-        }
-      
-      }
-    }
-  
-  }
 
 }
 
@@ -125,7 +129,7 @@ class Cell{
     this.size = size;
     this.x = this.i * this.size;
     this.y = this.j * this.size;
-    this.color = this.p5.color(255, 0, 0);
+    this.live = false;
   }
 
   Show(){
@@ -133,7 +137,7 @@ class Cell{
     this.x = Math.floor(this.x);
     this.y = Math.floor(this.y);
 
-    this.p5.fill(this.color);
+    this.p5.fill(this.live ? 0 : 255);
     this.p5.rect(this.x, this.y, this.size, this.size);
   }
 }
