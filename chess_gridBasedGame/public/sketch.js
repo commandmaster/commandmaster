@@ -1,3 +1,18 @@
+// Bennett Friesen
+// 4/30/2024
+// 2d Array Assignment - Chess
+
+// Extra for Experts:
+// OOP - I used object oriented programming to create a chess game with a chess board, pieces, and a game history class
+// Networking - I used socket.io to create a multiplayer chess game
+// AI - I created an AI that can play chess using the minimax algorithm with alpha-beta pruning (based on a known algorithm and an implementation by Sebastian Lague on youtube)
+// UI - I created a Dynamic UI system that can be used to create UI elements and widgets
+// Custom p5js camera addon with dynaimic zoom and resize functionality
+// p5js instance mode, backed js, node, chat system with content moderation and chat history as well as a chat window
+// backened room system for multiplayer games allowing for more than one game to be played at once
+
+
+
 let gameBoard;
 let p5Camera;
 
