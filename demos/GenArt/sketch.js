@@ -15,6 +15,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
 
+
   seed = random(0, 1000);
 
   slider = createSlider(0, 100, 50);
@@ -54,3 +55,5 @@ function draw() {
   start += moveSpeed;
   
 }
+
+

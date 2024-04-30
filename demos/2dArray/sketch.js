@@ -6,6 +6,8 @@ const sketch = function(p5) {
     grid1 = new Grid(p5, 0, 700, 700);
     p5.background(0, 100, 100);
     p5.strokeWeight(2);
+
+  
   }
 
   p5.draw = () => {
