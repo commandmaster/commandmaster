@@ -2,84 +2,144 @@
 let grid1;
 const sketch = function(p5) {
   p5.setup = () => {
-    // fill the window
-    const maxSize = Math.min(window.innerWidth, window.innerHeight);
-    p5.createCanvas(maxSize, maxSize);
-    p5.frameRate(60);
-
-    grid1 = new Grid(p5, maxSize, maxSize, 0.05);
+    p5.createCanvas(p5.windowWidth, p5.windowHeight);
+    grid1 = new Grid(p5, 65, 65);
+    p5.background(255);
+    p5.noStroke();
   }
 
   p5.draw = () => {
-    p5.background(0);
+    p5.noStroke();
+    p5.background(255);
     grid1.Update();
+  }
 
+  p5.mouseWheel = (event) => {
+    const zoomSpeed = 5 ;
+    grid1.zoom -= event.delta / 1000 * zoomSpeed;
   }
 
 }
+
+
 
 class Grid{
-  constructor(p5, width, height, density = 0.5){
+  constructor(p5, rows, cols){
     this.p5 = p5;
+    this.rows = rows;
+    this.cols = cols;
+
+    this.defaultSize = 10;
+
+
     this.grid = [];
-    this.width = width;
-    this.height = height;
-    
-
-
-    this.density = density;
-    
-
-    p5.noStroke();
-
+    this.positionType ='middle';
     this.#initGrid();
+
+    this.p5.frameRate(20);
+    
+  }
+
+  #initGrid(){
+    for (let i = 0; i < this.rows; i++){
+      this.grid.push([]);
+      for (let j = 0; j < this.cols; j++){
+        this.grid[i].push(new Cell(this.p5, i, j, this.defaultSize));
+        this.grid[i][j].live = Math.random() > 0.5 ? true : false;
+
+      }
+    }
+    
+
+    // this.grid[9][10].live = true;
+    // this.grid[10][10].live = true;
+    // this.grid[11][10].live = true;
+    // this.grid[9][11].live = true;
+
+    // this.grid[10][12].live = true;  
   }
 
 
-  #initGrid(){
-    const cellSize = this.width / (this.width * this.density);
-    for(let x = 0; x < this.width; x += cellSize){
-      for(let y = 0; y < this.height; y += cellSize){
-        this.grid.push(new Cell(this.p5, x, y, cellSize));
+
+  #conwayRules(){
+    const newGrid = [];
+    for (let i = 0; i < this.rows; i++){
+      newGrid.push([]);
+      for (let j = 0; j < this.cols; j++){
+        let liveNeighbors = 0;
+        
+        for (let x = -1; x < 2; x++){
+          for (let y = -1; y < 2; y++){
+            if (i + x >= 0 && i + x < this.rows && j + y >= 0 && j + y < this.cols){
+              if (this.grid[i + x][j + y].live){
+                liveNeighbors++;
+              }
+            }
+          }
+        }
+
+        // Subtract the cell itself
+        if (this.grid[i][j].live){
+          liveNeighbors--;
+        }
+        
+        const cell = new Cell(this.p5, i, j, this.defaultSize);
+        cell.live = this.grid[i][j].live;
+        if (this.grid[i][j].live){
+          if (liveNeighbors < 2 || liveNeighbors > 3){
+            cell.live = false;
+          }
+        } 
+        else {
+          if (liveNeighbors === 3){
+            cell.live = true;
+          }
+
+          else{
+            cell.live = false;
+          }
+        }
+
+        newGrid[i].push(cell);
       }
     }
+    this.grid = newGrid;
   }
 
   Update(){
-    this.p5.push();
-    
-    for(let cell of this.grid){
-      cell.Update();
+    for (let i = 0; i < this.rows; i++){
+      for (let j = 0; j < this.cols; j++){
+        this.grid[i][j].Show();
+      }
     }
-    
-    
-    this.p5.pop();
+
+    this.#conwayRules();
+
   }
+
 
 }
 
+
 class Cell{
-  constructor(p5, x, y, size){
-    this.x = x;
-    this.y = y;
+  constructor(p5, i, j, size){
     this.p5 = p5;
+    this.i = i;
+    this.j = j;
     this.size = size;
+    this.x = this.i * this.size;
+    this.y = this.j * this.size;
+    this.live = false;
   }
 
-  Update(){
-    // Update the cell
-    this.#draw();
-  }
+  Show(){
 
-  #draw(){
-    // Draw the cell
-    const randColor = this.p5.random(255);
-    const randColor2 = this.p5.random(255);
-    
-    this.p5.fill(randColor, randColor2, 255);
+    this.x = Math.floor(this.x);
+    this.y = Math.floor(this.y);
+
+    this.p5.fill(this.live ? 0 : 255);
     this.p5.rect(this.x, this.y, this.size, this.size);
   }
-
 }
 
 
